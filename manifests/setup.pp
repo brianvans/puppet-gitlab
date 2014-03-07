@@ -74,18 +74,29 @@ class gitlab::setup inherits gitlab {
     }
   } # Case $::osfamily
 
-  # system packages
-  package { 'bundler':
-    ensure    => installed,
-    provider  => gem,
-  }
-
   # dev. dependencies
   ensure_packages($system_packages)
 
-  package { 'charlock_holmes':
-    ensure    => '0.6.9.4',
-    provider  => gem,
+  rbenv::install { $git_user:
+    group   => $git_user,
+    home    => $git_home,
+    rc      => '.bashrc', # read by non-interactive shells (e.g. ssh)
+  }
+
+  rbenv::compile { 'gitlab/2.0.0-p353':
+    user   => $git_user,
+    home   => $git_home,
+    ruby   => '2.0.0-p353',
+    global => true,
+    notify => [ Exec['install gitlab-shell'],
+                Exec['install gitlab'] ],
+  }
+
+  rbenv::gem { 'charlock_holmes':
+    user   => $git_user,
+    home   => $git_home,
+    ruby   => '2.0.0-p353',
+    ensure => '0.6.9.4',
   }
 
   # other packages
