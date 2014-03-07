@@ -93,17 +93,20 @@ class gitlab::setup inherits gitlab {
   }
 
   rbenv::gem { 'charlock_holmes':
+    ensure => '0.6.9.4',
     user   => $git_user,
     home   => $git_home,
     ruby   => $rbenv_ruby_version,
-    ensure => '0.6.9.4',
   }
+
+  # spaceship hackery to work around https://github.com/alup/puppet-rbenv/issues/38
+  Rbenv::Gem<| |> ~> Exec["rbenv::rehash ${git_user} ${rbenv_ruby_version}"]
 
   # git package
   if ! defined(Package['git']) {
     package { 'git':
-      name => $git_package_name,
-      ensure => present
+      ensure => present,
+      name   => $git_package_name
     }
   }
 
