@@ -149,9 +149,15 @@ describe 'gitlab' do
       end
       #### Commons packages (all dist.)
       describe 'commons packages' do
-        ['git-core','postfix','curl'].each do |pkg|
+        ['postfix','curl'].each do |pkg|
           it { should contain_package(pkg) }
         end
+      end
+      #### git package
+      describe 'git package' do
+        it { should contain_package('git').with(
+          :name => 'git-core'
+        )}
       end
     end # packages
   end # gitlab::setup

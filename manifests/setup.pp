@@ -99,6 +99,14 @@ class gitlab::setup inherits gitlab {
     ensure => '0.6.9.4',
   }
 
+  # git package
+  if ! defined(Package['git']) {
+    package { 'git':
+      name => $git_package_name,
+      ensure => present
+    }
+  }
+
   # other packages
-  ensure_packages([$git_package_name,'postfix','curl'])
+  ensure_packages(['postfix','curl'])
 }
