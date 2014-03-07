@@ -40,7 +40,8 @@ describe 'gitlab' do
       :ldap_uid               => 'cn',
       :ldap_method            => 'tls',
       :ldap_bind_dn           => 'uid=gitlab,o=bots,dc=fooboozoo,dc=fr',
-      :ldap_bind_password     => 'aV!oo1ier5ahch;a'
+      :ldap_bind_password     => 'aV!oo1ier5ahch;a',
+      :rbenv_ruby_version     => '1.1.1'
     }
   end
 
@@ -160,5 +161,22 @@ describe 'gitlab' do
         )}
       end
     end # packages
+    describe 'rbenv' do
+      describe 'rbenv install' do
+        it { contain_rbenv__install('gitlab').with(
+          :group => 'gitlab',
+          :home  => '/srv/gitlab',
+          :rc    => '.bashrc'
+        )}
+      end
+      describe 'rbenv compile' do
+        it { contain_rbenv__compile('gitlab/1.1.1').with(
+          :user   => 'gitlab',
+          :home   => '/srv/gitlab',
+          :ruby   => '1.1.1',
+          :global => 'true',
+        )}
+      end
+    end # rbenv
   end # gitlab::setup
 end # gitlab

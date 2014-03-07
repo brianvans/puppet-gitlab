@@ -184,6 +184,10 @@
 #   Package name for git install
 #   default: git-core (Debian)
 #
+# [*rbenv_ruby_version*]
+#   The ruby version for rbenv to install
+#   default: 2.0.0-p353
+#
 # === Examples
 #
 # See examples/gitlab.pp
@@ -255,6 +259,7 @@ class gitlab(
     $ldap_bind_dn             = $gitlab::params::ldap_bind_dn,
     $ldap_bind_password       = $gitlab::params::ldap_bind_password,
     $git_package_name         = $gitlab::params::git_package_name,
+    $rbenv_ruby_version       = $gitlab::params::rbenv_ruby_version,
   ) inherits gitlab::params {
   case $::osfamily {
     Debian: {}

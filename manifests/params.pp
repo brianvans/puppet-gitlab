@@ -48,7 +48,7 @@ class gitlab::params {
   $ldap_method              = 'ssl'
   $ldap_bind_dn             = ''
   $ldap_bind_password       = ''
-
+  $rbenv_ruby_version       = '2.0.0-p353'
 
   # determine pre-requisite packages
   case $::osfamily {
