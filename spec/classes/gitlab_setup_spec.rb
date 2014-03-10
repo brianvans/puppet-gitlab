@@ -164,16 +164,30 @@ describe 'gitlab' do
     describe 'rbenv' do
       context 'rbenv_ruby_version default version' do
         describe 'rbenv install' do
-          it { should contain_rbenv__install('git') }
+          it { should contain_rbenv__install('git').with(
+            :group => 'git',
+            :home  => '/home/git',
+            :rc    => '.bashrc'
+          )}
         end
         describe 'rbenv compile' do
-          it { should contain_rbenv__compile('gitlab/2.0.0-p353') }
+          it { should contain_rbenv__compile('gitlab/2.0.0-p353').with(
+            :user   => 'git',
+            :home   => '/home/git',
+            :ruby   => '2.0.0-p353',
+            :global => 'true'
+          )}
         end
       end
       context 'rbenv_ruby_version custom version' do
         let(:params) { params_set }
         describe 'rbenv compile' do
-          it { should contain_rbenv__compile('gitlab/1.1.1') }
+          it { should contain_rbenv__compile('gitlab/1.1.1').with(
+            :user   => 'gitlab',
+            :home   => '/srv/gitlab',
+            :ruby   => '1.1.1',
+            :global => 'true'
+          )}
         end
       end
     end # rbenv
