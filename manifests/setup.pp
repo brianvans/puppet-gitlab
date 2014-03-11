@@ -111,6 +111,4 @@ class gitlab::setup inherits gitlab {
     }
   }
 
-  # other packages
-  ensure_packages(['postfix','curl'])
 }

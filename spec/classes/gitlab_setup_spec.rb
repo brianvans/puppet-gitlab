@@ -149,12 +149,6 @@ describe 'gitlab' do
           :ruby     => '2.0.0-p353'
         )}
       end
-      #### Commons packages (all dist.)
-      describe 'commons packages' do
-        ['postfix','curl'].each do |pkg|
-          it { should contain_package(pkg) }
-        end
-      end
       #### git package
       describe 'git package' do
         it { should contain_package('git').with(
