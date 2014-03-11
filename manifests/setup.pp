@@ -9,12 +9,13 @@ class gitlab::setup inherits gitlab {
 
   # user
   user { $git_user:
-    ensure   => present,
-    shell    => '/bin/bash',
-    password => '*',
-    home     => $git_home,
-    comment  => $git_comment,
-    system   => true,
+    ensure     => present,
+    shell      => '/bin/bash',
+    password   => '*',
+    home       => $git_home,
+    comment    => $git_comment,
+    system     => true,
+    managehome => true
   }
 
   sshkey { 'localhost':
