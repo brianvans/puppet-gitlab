@@ -142,12 +142,6 @@ describe 'gitlab' do
         it { should contain_rbenv__gem('rbenv::bundler git 2.0.0-p353').with(
           :ensure => 'present'
         )}
-        it { should contain_rbenv__gem('charlock_holmes').with(
-          :ensure   => '0.6.9.4',
-          :user     => 'git',
-          :home     => '/home/git',
-          :ruby     => '2.0.0-p353'
-        )}
       end
       #### git package
       describe 'git package' do
