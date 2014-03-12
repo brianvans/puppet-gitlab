@@ -12,6 +12,7 @@ PuppetLint.configuration.send('disable_variable_scope')
 #TODO http://puppet-lint.com/checks/class_inherits_from_params_class/
 PuppetLint.configuration.send('disable_class_inherits_from_params_class')
 PuppetLint.configuration.fail_on_warnings = true
+PuppetLint.configuration.ignore_paths = "spec/**/*.pp"
 
 def get_version
   if File.read(File.join(TDIR, 'Modulefile')) =~ /(\d+)\.(\d+)\.(\d+)/
