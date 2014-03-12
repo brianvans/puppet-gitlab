@@ -349,5 +349,11 @@ describe 'gitlab' do
         )}
       end # setup gitlab database
     end # with params
+    context 'dont clobber db' do
+      let(:params) {{ :gitlab_clobber_db => false }}
+        describe 'dont setup gitlab database' do
+          it { should_not contain_exec('setup gitlab database') }
+        end
+    end
   end # gitlab::install
 end # gitlab

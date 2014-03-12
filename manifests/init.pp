@@ -84,6 +84,10 @@
 #   Gitlab database port
 #   default: 3306
 #
+# [*gitlab_clobber_db*]
+#   Whether or not to run the destructive gitlab:setup task on intial provision
+#   default: true
+#
 # [*gitlab_domain*]
 #   Gitlab domain
 #   default: $fqdn
@@ -233,6 +237,7 @@ class gitlab(
     $gitlab_dbpwd             = $gitlab::params::gitlab_dbpwd,
     $gitlab_dbhost            = $gitlab::params::gitlab_dbhost,
     $gitlab_dbport            = $gitlab::params::gitlab_dbport,
+    $gitlab_clobber_db        = $gitlab::params::gitlab_clobber_db,
     $gitlab_domain            = $gitlab::params::gitlab_domain,
     $gitlab_repodir           = $gitlab::params::gitlab_repodir,
     $gitlab_backup            = $gitlab::params::gitlab_backup,
@@ -279,6 +284,7 @@ class gitlab(
   validate_bool($gitlab_ssl_self_signed)
   validate_bool($gitlab_username_change)
   validate_bool($ldap_enabled)
+  validate_bool($gitlab_clobber_db)
 
   validate_re($gitlab_dbtype, '(mysql|pgsql)', 'gitlab_dbtype is not supported')
   validate_re($gitlab_dbport, '^\d+$', 'gitlab_dbport is not a valid port')

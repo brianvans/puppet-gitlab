@@ -82,26 +82,27 @@ class gitlab::install inherits gitlab {
     ],
   }
 
-  exec { 'setup gitlab database':
-    command => '/usr/bin/yes yes | bundle exec rake gitlab:setup RAILS_ENV=production',
-    cwd     => "${git_home}/gitlab",
-    creates => "${git_home}/.gitlab_setup_done",
-    require => Exec['install gitlab'],
-    notify  => Exec['precompile assets'],
-  }
-
   exec { 'precompile assets':
-    command     => 'bundle exec rake assets:precompile RAILS_ENV=production',
-    cwd         =>  "${git_home}/gitlab",
-    refreshonly =>  true,
+    command => 'bundle exec rake assets:precompile RAILS_ENV=production',
+    cwd     => "${git_home}/gitlab",
+    creates => "${git_home}/gitlab/public/assets",
+    require => Exec['install gitlab']
   }
 
-  file {
-    "${git_home}/.gitlab_setup_done":
-      ensure  => present,
-      owner   => 'root',
-      group   => 'root',
-      require => Exec['setup gitlab database'];
-  }
+  if $gitlab_clobber_db {
+    exec { 'setup gitlab database':
+      command => '/usr/bin/yes yes | bundle exec rake gitlab:setup RAILS_ENV=production',
+      cwd     => "${git_home}/gitlab",
+      creates => "${git_home}/.gitlab_setup_done",
+      require => Exec['install gitlab'],
+    }
 
+    file {
+      "${git_home}/.gitlab_setup_done":
+        ensure  => present,
+        owner   => 'root',
+        group   => 'root',
+        require => Exec['setup gitlab database'];
+    }
+  }
 }

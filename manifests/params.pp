@@ -23,6 +23,7 @@ class gitlab::params {
   $gitlab_dbpwd             = 'changeme'
   $gitlab_dbhost            = 'localhost'
   $gitlab_dbport            = '5432'
+  $gitlab_clobber_db        = true
   $gitlab_domain            = $::fqdn
   $gitlab_repodir           = $git_home
   $gitlab_backup            = false
