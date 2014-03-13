@@ -93,6 +93,10 @@ class gitlab::setup inherits gitlab {
                 Exec['install gitlab'] ],
   }
 
+  # spaceship hackery to work around https://github.com/alup/puppet-rbenv/issues/38
+  # without this, the first run fails out on the bundle command missing
+  Rbenv::Gem<| |> ~> Exec["rbenv::rehash ${git_user} ${rbenv_ruby_version}"]
+
   # git package
   if ! defined(Package['git']) {
     package { 'git':
