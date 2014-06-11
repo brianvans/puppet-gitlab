@@ -74,7 +74,7 @@ describe 'gitlab' do
           :group  => 'root',
           :mode   => '0644'
         )}
-        it { should contain_file('/etc/nginx/conf.d/gitlab.conf').with_content(/server unix:\/home\/git\/gitlab\/tmp\/sockets\/gitlab.socket;/)}
+        it { should contain_file('/etc/nginx/conf.d/gitlab.conf').with_content(/server unix:\/home\/git\/gitlab\/tmp\/sockets\/gitlab.socket fail_timeout=0;/)}
         it { should contain_file('/etc/nginx/conf.d/gitlab.conf').with_content(/listen 80;/)}
         it { should contain_file('/etc/nginx/conf.d/gitlab.conf').with_content(/server_name gitlab.fooboozoo.fr;/)}
         it { should contain_file('/etc/nginx/conf.d/gitlab.conf').with_content(/server_tokens off;/)}
@@ -138,7 +138,7 @@ describe 'gitlab' do
           :group  => 'root',
           :mode   => '0644'
         )}
-        it { should contain_file('/etc/nginx/conf.d/gitlab.conf').with_content(/server unix:#{params_set[:git_home]}\/gitlab\/tmp\/sockets\/gitlab.socket;/)}
+        it { should contain_file('/etc/nginx/conf.d/gitlab.conf').with_content(/server unix:#{params_set[:git_home]}\/gitlab\/tmp\/sockets\/gitlab.socket fail_timeout=0;/)}
         it { should contain_file('/etc/nginx/conf.d/gitlab.conf').with_content(/server_name gitlab.fooboozoo.fr;/)}
         it { should contain_file('/etc/nginx/conf.d/gitlab.conf').with_content(/server_tokens off;/)}
         it { should contain_file('/etc/nginx/conf.d/gitlab.conf').with_content(/root #{params_set[:git_home]}\/gitlab\/public;/)}

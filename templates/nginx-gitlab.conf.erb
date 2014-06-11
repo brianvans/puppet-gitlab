@@ -16,7 +16,7 @@
 # [2] https://github.com/agentzh/chunkin-nginx-module
 
 upstream gitlab {
-  server unix:<%= @git_home %>/gitlab/tmp/sockets/gitlab.socket;
+  server unix:<%= @git_home %>/gitlab/tmp/sockets/gitlab.socket fail_timeout=0;
 }
 
 <% if @gitlab_ssl %>
