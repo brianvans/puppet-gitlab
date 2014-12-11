@@ -196,6 +196,11 @@
 #   installed (used to manage conflicts with other modules)
 #   default: true
 #
+# [*gitlab_webhook_timeout*]
+#   As of gitlab 7.3.0, the amount of time that gitlab waits for a webhook
+#   to response before failing is configurable via this parameter.
+#   default: 10
+#
 # [*ldap_enabled*]
 #   Enable LDAP backend for gitlab web (see bellow)
 #   default: false
@@ -341,6 +346,7 @@ class gitlab(
     $gitlab_ensure_postfix    = $gitlab::params::gitlab_ensure_postfix,
     $gitlab_ensure_curl       = $gitlab::params::gitlab_ensure_curl,
     $gitlab_ruby_version      = $gitlab::params::gitlab_ruby_version,
+    $gitlab_webhook_timeout   = $gitlab::params::gitlab_webhook_timeout,
     $exec_path                = $gitlab::params::exec_path,
     $ldap_enabled             = $gitlab::params::ldap_enabled,
     $ldap_host                = $gitlab::params::ldap_host,

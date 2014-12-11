@@ -89,6 +89,10 @@ production: &base
     # The default is 'tmp/repositories' relative to the root of the Rails app.
     # repository_downloads_path: tmp/repositories
 
+    ## Webhook settings
+    # Number of seconds to wait for HTTP response after sending webhook HTTP POST request (default: 10)
+    webhook_timeout: <%= @gitlab_webhook_timeout %>
+
   ## External issues trackers
   issues_tracker:
     # redmine:

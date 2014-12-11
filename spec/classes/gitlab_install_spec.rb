@@ -27,6 +27,7 @@ describe 'gitlab' do
       :gitlab_unicorn_worker    => '8',
       :gitlab_bundler_flags     => '--no-deployment',
       :gitlab_bundler_jobs      => '2',
+      :gitlab_webhook_timeout   => '20',
       :exec_path                => '/opt/bw/bin:/bin:/usr/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin',
       :ldap_host                => 'ldap.fooboozoo.fr',
       :ldap_base                => 'dc=fooboozoo,dc=fr',
@@ -110,6 +111,7 @@ describe 'gitlab' do
         it { is_expected.to contain_file('/home/git/gitlab/config/gitlab.yml').with_content(/^\s*ssh_port: 22$/)}
         it { is_expected.to contain_file('/home/git/gitlab/config/gitlab.yml').with_content(/^\s*# google_analytics_id: '_your_tracking_id'$/)}
         it { is_expected.to contain_file('/home/git/gitlab/config/gitlab.yml').with_content(/^\s*# sign_in_text: \|\n\s*#   !\[Company Logo\]\(http:\/\/www.companydomain.com\/logo.png\)\n\s*#   \[Learn more about CompanyName\]\(http:\/\/www.companydomain.com\/\)$/)}
+        it { is_expected.to contain_file('/home/git/gitlab/config/gitlab.yml').with_content(/^\s*webhook_timeout: 10$/)}
       end # gitlab config
       describe 'rack_attack config' do
         it { is_expected.to contain_file('/home/git/gitlab/config/initializers/rack_attack.rb').with(
@@ -248,6 +250,7 @@ describe 'gitlab' do
         it { is_expected.to contain_file("#{params_set[:git_home]}/gitlab/config/gitlab.yml").with_content(/^\s*google_analytics_id: #{params_set[:google_analytics_id]}$/)}
         it { is_expected.to contain_file("#{params_set[:git_home]}/gitlab/config/gitlab.yml").with_content(/^\s*sign_in_text: \|\n\s*!\[Company Logo\]\(#{params_set[:company_logo_url]}\)\n\s*\[Learn more about #{params_set[:company_name]}\]\(#{params_set[:company_link]}\)$/)}
         it { is_expected.to contain_file("#{params_set[:git_home]}/gitlab/config/application.rb").with_content(/^\s*#Fix for compatibility issue with exim as explained at https:\/\/github.com\/gitlabhq\/gitlabhq\/issues\/4866\s*config.action_mailer.sendmail_settings = \{ :arguments => "-i" \}$/)}
+        it { is_expected.to contain_file("#{params_set[:git_home]}/gitlab/config/gitlab.yml").with_content(/^\s*webhook_timeout: #{params_set[:gitlab_webhook_timeout]}$/)}
       end # gitlab config
       describe 'rack_attack config' do
         it { is_expected.to contain_file("#{params_set[:git_home]}/gitlab/config/initializers/rack_attack.rb").with(
