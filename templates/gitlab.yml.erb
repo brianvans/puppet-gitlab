@@ -82,6 +82,10 @@ production: &base
       snippets: false
       visibility_level: "private"  # can be "private" | "internal" | "public"
 
+    ## Webhook settings
+    # Number of seconds to wait for HTTP response after sending webhook HTTP POST request (default: 10)
+    webhook_timeout: <%= @gitlab_webhook_timeout %>
+
   ## External issues trackers
   issues_tracker:
     # redmine:

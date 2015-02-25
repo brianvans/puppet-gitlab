@@ -33,6 +33,7 @@ describe 'gitlab' do
       :gitlab_username_change => false,
       :gitlab_unicorn_port    => '8888',
       :gitlab_unicorn_worker  => '8',
+      :gitlab_webhook_timeout => '30',
       :exec_path              => '/opt/bw/bin:/bin:/usr/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin',
       :ldap_host              => 'ldap.fooboozoo.fr',
       :ldap_base              => 'dc=fooboozoo,dc=fr',
