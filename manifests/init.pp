@@ -148,6 +148,10 @@
 #   Port that unicorn listens on 172.0.0.1 for HTTP traffic
 #   (default: 8080)
 #
+# [*gitlab_webhook_timeout*]
+#   Number of seconds to wait for HTTP response after sending webhook HTTP POST request
+#   (default: 10)
+#
 # [*ldap_enabled*]
 #   Enable LDAP backend for gitlab web (see bellow)
 #   default: false
@@ -245,6 +249,7 @@ class gitlab(
     $gitlab_username_change   = $gitlab::params::gitlab_username_change,
     $gitlab_unicorn_port      = $gitlab::params::gitlab_unicorn_port,
     $gitlab_unicorn_worker    = $gitlab::params::gitlab_unicorn_worker,
+    $gitlab_webhook_timeout   = $gitlab::params::gitlab_webhook_timeout,
     $exec_path                = $gitlab::params::exec_path,
     $ldap_enabled             = $gitlab::params::ldap_enabled,
     $ldap_host                = $gitlab::params::ldap_host,
